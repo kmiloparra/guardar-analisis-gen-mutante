@@ -1,0 +1,12 @@
+{
+	"extends": "@istanbuljs/nyc-config-typescript",
+	"reporter": [
+		"lcov",
+		"text"
+	],
+	"lines": 85,
+	"statements": 85,
+	"temp-dir": "coverage/.nyc_output",
+	"all": true,
+	"check-coverage": true
+}

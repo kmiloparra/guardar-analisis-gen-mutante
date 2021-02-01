@@ -1,0 +1,63 @@
+{
+  "name": "guardar-analisis-gen-mutante",
+  "version": "1.0.0",
+  "description": "Lambda para guardar codigo mutante",
+  "main": "index.js",
+  "scripts": {
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "coverage": "nyc -r lcov -r text -e .ts -x \"test/**/*.spec.ts\" npm run test",
+    "sonar-local": "sonar-scanner -Dsonar.host.url=http://localhost:9000",
+    "sonar": "sonar-scanner -Dsonar.organization=$SONAR_ORGANIZATION -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN",
+    "lint": "eslint '*/**/*.ts' --quiet",
+    "lint:fix": "eslint '*/**/*.ts' --quiet --fix",
+    "prettier": "prettier '*/**/*.ts' --check",
+    "prettier:write": "prettier '*/**/*.ts' --write",
+    "build": "npm run clean && npm run build-app",
+    "clean": "rimraf dist && rimraf coverage && rimraf guardar-analisis-gen-mutante.zip",
+    "build-app": "tsc -p tsconfig.json",
+    "postbuild": "npm run copy-pck-files && npm run copy-mdl-files && npm run zip && mv guardar-analisis-gen-mutante.zip dist/",
+    "copy-pck-files": "copyfiles -u 1 src/package.json dist/src",
+    "copy-mdl-files": "cp package.json dist && cd dist && npm i --production && cd ../",
+    "zip": "cd dist/ && bestzip  ../guardar-analisis-gen-mutante.zip *"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/mocha": "^8.2.0",
+    "http-status-codes": "^1.4.0",
+    "inversify": "^5.0.1",
+    "reflect-metadata": "^0.1.13",
+    "typescript-json-object-mapper": "^1.4.5"
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/aws-lambda": "^8.10.51",
+    "@types/jasmine": "^3.6.1",
+    "@types/jest": "^26.0.19",
+    "@types/sinon": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "aws-sdk": "^2.814.0",
+    "bestzip": "^2.1.7",
+    "copyfiles": "^2.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jasmine": "^3.5.0",
+    "nyc": "^15.0.1",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "sinon": "^9.0.2",
+    "sonar-scanner": "^3.1.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  },
+  "nyc": {
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "src/inversify.config.ts"
+    ]
+  }
+}
