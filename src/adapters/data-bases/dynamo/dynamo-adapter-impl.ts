@@ -9,12 +9,10 @@ export { AWS };
 @injectable()
 export class DynamoAdapterImpl implements DynamoAdapter {
   private docClient: AWS.DynamoDB.DocumentClient;
-  private kms: AWS.KMS;
 
   constructor() {
     AWS.config.update({ region: CONSTANTS.REGION });
     this.docClient = new AWS.DynamoDB.DocumentClient({ apiVersion: CONSTANTS.API_VERSION });
-    this.kms = this.kms || new AWS.KMS({ region: CONSTANTS.REGION });
   }
 
   async save(
