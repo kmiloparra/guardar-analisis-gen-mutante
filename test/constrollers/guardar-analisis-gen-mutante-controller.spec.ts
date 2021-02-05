@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { GuardarAnalisisGenMutanteController } from "../../src/controllers/guardar-analisis-gen-mutante-controller";
 import { GuardarAnalisisGenMutanteResponse } from "../../src/models/guardar-analisis-gen-mutante-response";
 
-describe("CardAssociationCollectorController", () => {
+describe("GuardarAnalisisGenMutanteController", () => {
   const serviceSpy = jasmine.createSpyObj("GuardarAnalisisGenMutanteHandler", ["guardar"]);
   const saveSpy = serviceSpy.guardar as jasmine.Spy;
   let controller: GuardarAnalisisGenMutanteController;
